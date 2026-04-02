@@ -3,18 +3,18 @@ AOS.init({ duration: 800, once: false, mirror: true });
 
 // Mock Data
 const tenders = [
-    { id: 1, title: "Construction of Solar-Powered Market", municipality: "City of Joburg", closing: "2025-06-20", amount: "R 3.2M", badge: "New" },
-    { id: 2, title: "Supply of Medical Equipment - Clinics", municipality: "Cape Town Metro", closing: "2025-05-28", amount: "R 1.8M", badge: "Urgent" },
-    { id: 3, title: "Road Resealing Project Ward 9", municipality: "eThekwini", closing: "2025-07-05", amount: "R 4.5M", badge: "Featured" },
-    { id: 4, title: "IT Infrastructure for Libraries", municipality: "Tshwane", closing: "2025-06-12", amount: "R 950K", badge: "" },
-    { id: 5, title: "Waste Management Services", municipality: "Nelson Mandela Bay", closing: "2025-06-30", amount: "R 2.1M", badge: "New" }
+    { id: 1, title: "Construction of Solar-Powered Market", municipality: "Makhado Municipality", closing: "2026-06-20", amount: "R 3 200 000", badge: "New" },
+    { id: 2, title: "Supply of Medical Equipment - Clinics", municipality: "Thulamela Municipality", closing: "2026-05-28", amount: "R 1 800 000", badge: "Urgent" },
+    { id: 3, title: "Road Resealing Project Ward 9", municipality: "eThekwini", closing: "2025-07-05", amount: "R 4 500 000", badge: "Featured" },
+    { id: 4, title: "IT Infrastructure for Libraries", municipality: "Tshwane", closing: "2026-06-12", amount: "R 950 000", badge: "" },
+    { id: 5, title: "Waste Management Services", municipality: "Capricon Municipality", closing: "2026-06-30", amount: "R 2 100 000", badge: "New" }
 ];
 
 const grants = [
-    { id: 101, title: "Youth Entrepreneurship Grant", dept: "NYDA", amount: "R 50k - R 250k", deadline: "2025-07-15", icon: "🚀" },
-    { id: 102, title: "Green Energy Business Fund", dept: "DMRE", amount: "Up to R 500k", deadline: "2025-08-01", icon: "🌱" },
-    { id: 103, title: "NPO Capacity Building Grant", dept: "DSD", amount: "R 75k", deadline: "2025-06-25", icon: "🤝" },
-    { id: 104, title: "Women in Tech Grant", dept: "DCDT", amount: "R 120k", deadline: "2025-07-20", icon: "💻" }
+    { id: 101, title: "Youth Entrepreneurship Grant", dept: "NYDA", amount: "R 50 000 - R 250 000", deadline: "2026-07-15", icon: "🚀" },
+    { id: 102, title: "Green Energy Business Fund", dept: "DMRE", amount: "Up to R 500 000", deadline: "2026-08-01", icon: "🌱" },
+    { id: 103, title: "NPO Capacity Building Grant", dept: "DSD", amount: "R 75 000", deadline: "2026-06-25", icon: "🤝" },
+    { id: 104, title: "Women in Tech Grant", dept: "DCDT", amount: "R 120 000", deadline: "2026-07-20", icon: "💻" }
 ];
 
 // Render Functions
