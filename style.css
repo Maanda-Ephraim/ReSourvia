@@ -1,0 +1,155 @@
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Hero Background with Building & SA Flags + Shaded Overlay */
+.hero-bg {
+    background-image: linear-gradient(rgba(30, 42, 50, 0.65), rgba(11, 59, 95, 0.7)), 
+                      url('https://images.unsplash.com/photo-1588962737702-716edf40ce53?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    border-radius: 2rem;
+    position: relative;
+}
+
+@media (max-width: 640px) {
+    .hero-bg {
+        background-image: linear-gradient(rgba(30, 42, 50, 0.7), rgba(11, 59, 95, 0.8)), 
+                          url('https://images.unsplash.com/photo-1588962737702-716edf40ce53?q=80&w=2070&auto=format&fit=crop');
+    }
+}
+
+/* 3D Transitions & Catchy Effects */
+.card-3d {
+    transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.card-3d:hover {
+    transform: translateY(-12px) scale(1.02) rotateX(2deg);
+    box-shadow: 0 25px 40px -12px rgba(11, 59, 95, 0.35), 0 0 0 1px rgba(217, 164, 4, 0.2);
+}
+
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #0B3B5F, #800020);
+    transition: width 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-3d {
+    transition: all 0.2s ease;
+    transform: translateY(0);
+}
+
+.btn-3d:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px -5px rgba(11, 59, 95, 0.4);
+}
+
+.btn-3d:active {
+    transform: translateY(1px);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(197, 205, 214, 0.4);
+}
+
+.hero-3d {
+    animation: float3d 6s ease-in-out infinite;
+}
+
+@keyframes float3d {
+    0% { transform: translateY(0px) rotateX(0deg); }
+    50% { transform: translateY(-10px) rotateX(2deg); }
+    100% { transform: translateY(0px) rotateX(0deg); }
+}
+
+.modal-enter {
+    animation: modalPop 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.9) rotateX(-15deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotateX(0deg);
+    }
+}
+
+.tender-item, .grant-item {
+    transition: all 0.3s ease-out;
+}
+
+.tender-item:hover, .grant-item:hover {
+    transform: translateX(8px) scale(1.01);
+    border-left-width: 6px;
+}
+
+.contact-card {
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, #0B3B5F05, #80002005);
+}
+
+@media (max-width: 768px) {
+    .card-3d:hover {
+        transform: translateY(-6px) scale(1.01);
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #F4F6F9;
+}
+::-webkit-scrollbar-thumb {
+    background: #0B3B5F;
+    border-radius: 4px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0B3B5F;
+    box-shadow: 0 0 0 3px rgba(11, 59, 95, 0.1);
+    transform: scale(1.01);
+    transition: all 0.2s;
+}
+
+/* Maroon utility (override if needed) */
+.text-maroon { color: #800020; }
+.bg-maroon { background-color: #800020; }
+.border-maroon { border-color: #800020; }
