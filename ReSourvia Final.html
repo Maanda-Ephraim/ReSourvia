@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ReSourvia | Tenders & Grants Hub for South Africa</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Hero Background with Building & SA Flags + Shaded Overlay */
+        .hero-bg {
+            background-image: linear-gradient(rgba(30, 42, 50, 0.65), rgba(11, 59, 95, 0.7)), 
+                              url('https://images.unsplash.com/photo-1588962737702-716edf40ce53?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            border-radius: 2rem;
+            position: relative;
+        }
+        
+        @media (max-width: 640px) {
+            .hero-bg {
+                background-image: linear-gradient(rgba(30, 42, 50, 0.7), rgba(11, 59, 95, 0.8)), 
+                                  url('https://images.unsplash.com/photo-1588962737702-716edf40ce53?q=80&w=2070&auto=format&fit=crop');
+            }
+        }
+        
+        /* 3D Transitions & Catchy Effects */
+        .card-3d {
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .card-3d:hover {
+            transform: translateY(-12px) scale(1.02) rotateX(2deg);
+            box-shadow: 0 25px 40px -12px rgba(11, 59, 95, 0.35), 0 0 0 1px rgba(217, 164, 4, 0.2);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #0B3B5F, #800020);
+            transition: width 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .btn-3d {
+            transition: all 0.2s ease;
+            transform: translateY(0);
+        }
+        
+        .btn-3d:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(11, 59, 95, 0.4);
+        }
+        
+        .btn-3d:active {
+            transform: translateY(1px);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(197, 205, 214, 0.4);
+        }
+        
+        .hero-3d {
+            animation: float3d 6s ease-in-out infinite;
+        }
+        
+        @keyframes float3d {
+            0% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-10px) rotateX(2deg); }
+            100% { transform: translateY(0px) rotateX(0deg); }
+        }
+        
+        .modal-enter {
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+        }
+        
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9) rotateX(-15deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateX(0deg);
+            }
+        }
+        
+        .tender-item, .grant-item {
+            transition: all 0.3s ease-out;
+        }
+        
+        .tender-item:hover, .grant-item:hover {
+            transform: translateX(8px) scale(1.01);
+            border-left-width: 6px;
+        }
+        
+        .contact-card {
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #0B3B5F05, #80002005);
+        }
+        
+        @media (max-width: 768px) {
+            .card-3d:hover {
+                transform: translateY(-6px) scale(1.01);
+            }
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F6F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0B3B5F;
+            border-radius: 4px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #0B3B5F;
+            box-shadow: 0 0 0 3px rgba(11, 59, 95, 0.1);
+            transform: scale(1.01);
+            transition: all 0.2s;
+        }
+        
+        .text-maroon { color: #800020; }
+        .bg-maroon { background-color: #800020; }
+        .border-maroon { border-color: #800020; }
+        
+        .closed-badge {
+            background-color: #6B7280;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-[#F4F6F9] text-[#1E2A32] overflow-x-hidden">
+
+    <!-- Navigation Task Bar -->
+    <nav class="bg-white/95 backdrop-blur-md border-b border-[#C5CDD6] sticky top-0 z-50 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2 group cursor-pointer" data-aos="fade-right" data-aos-duration="600">
+                    <div class="relative">
+                        <i class="fas fa-building text-3xl text-[#0B3B5F] group-hover:scale-110 transition-transform"></i>
+                        <i class="fas fa-hand-holding-heart text-xl text-[#800020] absolute -bottom-1 -right-2"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-xl md:text-2xl tracking-tight">
+                            <span class="text-[#0B3B5F]">Re</span><span class="text-[#4A5B6B]">Sour</span><span class="text-[#800020]">via</span>
+                        </span>
+                        <p class="text-[8px] md:text-[10px] font-semibold text-gray-500 -mt-1">GOV. PARTNER</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Task Bar -->
+                <div class="hidden md:flex space-x-8 text-sm font-semibold">
+                    <a href="#home" class="nav-link text-[#1E2A32] hover:text-[#0B3B5F] transition"><i class="fas fa-home mr-1"></i> Home</a>
+                    <a href="#about" class="nav-link text-[#1E2A32] hover:text-[#0B3B5F] transition"><i class="fas fa-info-circle mr-1"></i> About</a>
+                    <a href="#tenders-section" class="nav-link text-[#1E2A32] hover:text-[#0B3B5F] transition"><i class="fas fa-file-contract mr-1"></i> Tenders</a>
+                    <a href="#grants-section" class="nav-link text-[#1E2A32] hover:text-[#0B3B5F] transition"><i class="fas fa-gift mr-1"></i> Grants</a>
+                    <a href="#contact-section" class="nav-link text-[#1E2A32] hover:text-[#0B3B5F] transition"><i class="fas fa-envelope mr-1"></i> Contact</a>
+                </div>
+                
+                <!-- Auth Buttons -->
+                <div class="flex space-x-3">
+                    <button id="loginBtn" class="border-2 border-[#0B3B5F] text-[#0B3B5F] px-4 py-1.5 rounded-lg text-sm font-semibold btn-3d hover:bg-[#0B3B5F] hover:text-white transition-all"><i class="fas fa-sign-in-alt mr-1"></i> Login</button>
+                    <button id="signupBtn" class="bg-[#0B3B5F] text-white px-4 py-1.5 rounded-lg text-sm font-semibold btn-3d shadow-md"><i class="fas fa-user-plus mr-1"></i> Sign up</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile bottom task bar -->
+        <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t border-[#C5CDD6] z-50 shadow-2xl">
+            <div class="flex justify-around py-2">
+                <a href="#home" class="flex flex-col items-center text-xs text-[#0B3B5F] py-1"><i class="fas fa-home text-xl"></i><span>Home</span></a>
+                <a href="#about" class="flex flex-col items-center text-xs text-gray-600 py-1"><i class="fas fa-info-circle text-xl"></i><span>About</span></a>
+                <a href="#tenders-section" class="flex flex-col items-center text-xs text-gray-600 py-1"><i class="fas fa-file-alt text-xl"></i><span>Tenders</span></a>
+                <a href="#grants-section" class="flex flex-col items-center text-xs text-gray-600 py-1"><i class="fas fa-gift text-xl"></i><span>Grants</span></a>
+                <a href="#contact-section" class="flex flex-col items-center text-xs text-gray-600 py-1"><i class="fas fa-headset text-xl"></i><span>Contact</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Home) -->
+    <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20">
+        <div class="hero-bg rounded-3xl p-6 md:p-12 shadow-2xl" data-aos="zoom-in" data-aos-duration="1000">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4 border border-white/30">
+                        <i class="fas fa-flag-checkered text-[#D9A404] animate-pulse"></i>
+                        <span class="text-sm font-semibold text-white">🇿🇦 Live Tender Updates</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white drop-shadow-lg"><span class="text-[#D9A404]">ReSourvia</span> <br><span class="text-white">Empowering Access</span> to Tenders & Grants</h1>
+                    <p class="text-lg text-white/90 mt-4 drop-shadow">South Africa's trusted platform for municipalities, businesses, NGOs, and individuals seeking government opportunities.</p>
+                    <div class="flex flex-wrap gap-4 mt-8">
+                        <button onclick="document.getElementById('tenders-section').scrollIntoView({behavior: 'smooth'})" class="bg-[#0B3B5F] text-white px-6 py-3 rounded-xl font-semibold btn-3d shadow-xl flex items-center gap-2"><i class="fas fa-chart-line"></i> Explore Tenders</button>
+                        <button onclick="document.getElementById('grants-section').scrollIntoView({behavior: 'smooth'})" class="bg-[#800020] text-white px-6 py-3 rounded-xl font-semibold btn-3d shadow-xl flex items-center gap-2"><i class="fas fa-hand-holding-heart"></i> Explore Grants</button>
+                    </div>
+                </div>
+                <div class="relative hero-3d hidden md:block" data-aos="flip-left" data-aos-duration="1000">
+                    <div class="glass-card rounded-2xl p-6 shadow-2xl bg-white/90">
+                        <i class="fas fa-chart-simple text-7xl text-[#D9A404] block text-center mb-4"></i>
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div class="bg-white/70 p-3 rounded-xl"><i class="fas fa-building text-[#0B3B5F] text-2xl"></i><p class="font-bold mt-1">320+ Tenders</p></div>
+                            <div class="bg-white/70 p-3 rounded-xl"><i class="fas fa-hand-holding-heart text-[#800020] text-2xl"></i><p class="font-bold mt-1">R 67M+ Grants</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white py-16 md:py-24 mt-8 shadow-inner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12" data-aos="zoom-in" data-aos-duration="600">
+                <i class="fas fa-scale-balanced text-5xl text-[#0B3B5F] mb-3"></i>
+                <h2 class="text-3xl md:text-4xl font-bold text-[#0B3B5F]">Why ReSourvia?</h2>
+                <div class="w-24 h-1 bg-[#800020] mx-auto mt-4 rounded-full"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Bridging the gap between government opportunities and citizens — with transparency, speed, and integrity.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-3d p-6 rounded-2xl bg-[#F4F6F9] text-center" data-aos="fade-right">
+                    <i class="fas fa-city text-4xl text-[#0B3B5F] mb-3"></i>
+                    <h3 class="text-xl font-bold">Municipality Verified</h3>
+                    <p class="text-gray-600 mt-2">Direct feeds from 52+ South African municipalities.</p>
+                </div>
+                <div class="card-3d p-6 rounded-2xl bg-[#F4F6F9] text-center" data-aos="fade-up" data-aos-delay="150">
+                    <i class="fas fa-users text-4xl text-[#800020] mb-3"></i>
+                    <h3 class="text-xl font-bold">All Parties Welcome</h3>
+                    <p class="text-gray-600 mt-2">Tenderpreneurs, SMMEs, NGOs, individuals — one platform.</p>
+                </div>
+                <div class="card-3d p-6 rounded-2xl bg-[#F4F6F9] text-center" data-aos="fade-left" data-aos-delay="300">
+                    <i class="fas fa-shield-alt text-4xl text-[#D9A404] mb-3"></i>
+                    <h3 class="text-xl font-bold">Secure Unique Signup</h3>
+                    <p class="text-gray-600 mt-2">Every user verified with unique credentials & data privacy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tenders Section (2026 dates: some closed) -->
+    <section id="tenders-section" class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+        <div class="flex items-center gap-3 mb-8" data-aos="fade-right">
+            <i class="fas fa-file-contract text-3xl text-[#0B3B5F]"></i>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#0B3B5F]">Latest Municipal Tenders</h2>
+            <span class="bg-[#D9A404] text-white px-3 py-1 rounded-full text-sm">Updated Daily</span>
+        </div>
+        <div id="tendersList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Grants Section (2026 deadlines: some closed) -->
+    <section id="grants-section" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 bg-gradient-to-br from-white to-[#F4F6F9] rounded-3xl my-8">
+        <div class="flex items-center gap-3 mb-8" data-aos="fade-left">
+            <i class="fas fa-hand-holding-usd text-3xl text-[#800020]"></i>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#800020]">Government Grants</h2>
+            <span class="bg-[#800020] text-white px-3 py-1 rounded-full text-sm">Funding Available</span>
+        </div>
+        <div id="grantsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Contact Section (unchanged, with updated phone and address) -->
+    <section id="contact-section" class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+        <div class="text-center mb-12" data-aos="zoom-in">
+            <i class="fas fa-headset text-4xl text-[#0B3B5F] mb-3"></i>
+            <h2 class="text-3xl md:text-4xl font-bold text-[#0B3B5F]">Get in Touch With ReSourvia</h2>
+            <div class="w-24 h-1 bg-[#800020] mx-auto mt-4 rounded-full"></div>
+            <p class="text-gray-600 max-w-2xl mx-auto mt-4">Have questions about tenders, grants, or partnership? Our team is here to help.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div data-aos="fade-right" data-aos-duration="800" class="card-3d bg-white rounded-2xl p-8 shadow-xl">
+                <h3 class="text-2xl font-bold text-[#0B3B5F] mb-6"><i class="fas fa-paper-plane mr-2 text-[#D9A404]"></i> Send us a message</h3>
+                <form id="contactForm" class="space-y-5">
+                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">Full Name *</label><input type="text" id="contactName" required class="form-input w-full p-3 border border-gray-300 rounded-xl"></div>
+                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">Email Address *</label><input type="email" id="contactEmail" required class="form-input w-full p-3 border border-gray-300 rounded-xl"></div>
+                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label><input type="tel" id="contactPhone" class="form-input w-full p-3 border border-gray-300 rounded-xl"></div>
+                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">Subject *</label><select id="contactSubject" class="form-input w-full p-3 border border-gray-300 rounded-xl"><option>Tender Inquiry</option><option>Grant Application Support</option><option>Partnership Opportunity</option><option>General Question</option></select></div>
+                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">Message *</label><textarea id="contactMessage" rows="4" required class="form-input w-full p-3 border border-gray-300 rounded-xl" placeholder="Tell us how we can assist..."></textarea></div>
+                    <button type="submit" class="w-full bg-[#0B3B5F] text-white py-3 rounded-xl font-bold btn-3d"><i class="fas fa-envelope mr-2"></i> Send Message</button>
+                </form>
+            </div>
+            <!-- Contact Info -->
+            <div data-aos="fade-left" data-aos-duration="800" class="space-y-6">
+                <div class="bg-gradient-to-br from-[#0B3B5F] to-[#1E4A6F] text-white rounded-2xl p-8 shadow-xl">
+                    <h3 class="text-2xl font-bold mb-6"><i class="fas fa-address-card mr-2"></i> ReSourvia Headquarters</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 contact-card p-3 rounded-xl">
+                            <i class="fas fa-map-marker-alt text-2xl text-[#D9A404] mt-1"></i>
+                            <div><p class="font-semibold">Physical Address</p><p class="text-sm opacity-90">Thohoyandou, Limpopo Province, 0950</p></div>
+                        </div>
+                        <div class="flex items-start gap-3 contact-card p-3 rounded-xl">
+                            <i class="fas fa-phone-alt text-2xl text-[#D9A404] mt-1"></i>
+                            <div><p class="font-semibold">Phone</p><p class="text-sm opacity-90">+27 79 587 5990</p></div>
+                        </div>
+                        <div class="flex items-start gap-3 contact-card p-3 rounded-xl">
+                            <i class="fas fa-envelope text-2xl text-[#D9A404] mt-1"></i>
+                            <div><p class="font-semibold">Email</p><p class="text-sm opacity-90">hello@resourvia.co.za</p></div>
+                        </div>
+                        <div class="flex items-start gap-3 contact-card p-3 rounded-xl">
+                            <i class="fas fa-clock text-2xl text-[#D9A404] mt-1"></i>
+                            <div><p class="font-semibold">Support Hours</p><p class="text-sm opacity-90">Mon-Fri: 8:00 - 17:00 SAT</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                    <div class="bg-gray-200 h-48 relative flex items-center justify-center" style="background: linear-gradient(135deg, #e0e7ff, #f0fdf4);">
+                        <i class="fas fa-map-pin text-5xl text-[#D9A404] absolute"></i>
+                        <div class="text-center">
+                            <p class="text-gray-600 text-sm"><i class="fas fa-map-marker-alt text-red-500"></i> ReSourvia Office, Thohoyandou</p>
+                            <p class="text-xs text-gray-500 mt-2">📍 Limpopo, South Africa</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-center text-sm text-gray-500 border-t">
+                        <i class="fas fa-globe-africa"></i> View on Google Maps | <a href="#" class="text-[#0B3B5F] hover:underline">Directions</a>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-6 mt-4">
+                    <a href="#" class="text-[#0B3B5F] text-2xl hover:scale-110 transition-transform"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-[#0B3B5F] text-2xl hover:scale-110 transition-transform"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-[#0B3B5F] text-2xl hover:scale-110 transition-transform"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-[#0B3B5F] text-2xl hover:scale-110 transition-transform"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-all duration-300">
+        <div class="bg-white w-full max-w-md mx-4 rounded-2xl shadow-2xl p-6 modal-enter">
+            <div class="flex justify-between items-center mb-4"><h3 class="text-2xl font-bold text-[#0B3B5F]"><i class="fas fa-user-plus mr-2"></i>Join ReSourvia</h3><button id="closeSignupModal" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button></div>
+            <form id="signupForm" class="space-y-4">
+                <div><label class="block text-sm font-semibold">Full Name *</label><input type="text" id="fullName" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0B3B5F]"></div>
+                <div><label class="block text-sm font-semibold">Email (unique) *</label><input type="email" id="email" required class="w-full p-2 border border-gray-300 rounded-lg"></div>
+                <div><label class="block text-sm font-semibold">Phone *</label><input type="tel" id="phone" required class="w-full p-2 border border-gray-300 rounded-lg"></div>
+                <div><label class="block text-sm font-semibold">User Type *</label><select id="userType" class="w-full p-2 border rounded-lg"><option>Tenderpreneur</option><option>Business</option><option>NGO/Organisation</option><option>Individual</option></select></div>
+                <div><label class="block text-sm font-semibold">Reg No / ID (unique)</label><input type="text" id="regNo" placeholder="Business reg or national ID" class="w-full p-2 border rounded-lg"></div>
+                <div><label class="block text-sm font-semibold">Password *</label><input type="password" id="password" required class="w-full p-2 border rounded-lg"></div>
+                <button type="submit" class="w-full bg-[#0B3B5F] text-white py-2 rounded-xl btn-3d font-bold"><i class="fas fa-check-circle"></i> Sign up & Verify</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white w-full max-w-md mx-4 rounded-2xl p-6 modal-enter">
+            <h3 class="text-2xl font-bold text-[#0B3B5F] mb-4"><i class="fas fa-key"></i> Welcome Back</h3>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" class="w-full p-2 border rounded-lg mb-3">
+                <input type="password" id="loginPassword" placeholder="Password" class="w-full p-2 border rounded-lg mb-4">
+                <button type="submit" class="w-full bg-[#0B3B5F] text-white py-2 rounded-xl btn-3d">Access Dashboard</button>
+            </form>
+            <p class="text-center mt-3">No account? <button id="switchToSignup" class="text-[#D9A404] font-bold">Sign up now</button></p>
+        </div>
+    </div>
+
+    <footer class="bg-[#0B3B5F] text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto text-center px-4">
+            <p class="opacity-80">© 2025 ReSourvia — Connecting South Africans to Government Opportunities. Civil. Rigid. Trusted.</p>
+            <p class="text-sm opacity-60 mt-2"><i class="fas fa-heart text-[#D9A404]"></i> Empowering tenderpreneurs, businesses, NGOs & individuals</p>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 800, once: false, mirror: true });
+        
+        // Helper function to check if a date is in the past (closed)
+        function isClosed(dateStr) {
+            const today = new Date();
+            const [year, month, day] = dateStr.split('-');
+            const itemDate = new Date(parseInt(year), parseInt(month)-1, parseInt(day));
+            return itemDate < today;
+        }
+        
+        // Tenders with 2026 dates (some closed)
+        const tenders = [
+            { id: 1, title: "Construction of Solar-Powered Market", municipality: "Thulamela Municipality", closing: "2026-01-15", amount: "Three million two hundred thousand Rand (R 3,200,000)", badge: "New" },
+            { id: 2, title: "Supply of Medical Equipment - Clinics", municipality: "Makhado Municipality", closing: "2026-02-28", amount: "One million eight hundred thousand Rand (R 1,800,000)", badge: "Urgent" },
+            { id: 3, title: "Road Resealing Project Ward 9", municipality: "Capricorn District", closing: "2026-07-05", amount: "Four million five hundred thousand Rand (R 4,500,000)", badge: "Featured" },
+            { id: 4, title: "IT Infrastructure for Libraries", municipality: "Thulamela Municipality", closing: "2026-03-10", amount: "Nine hundred fifty thousand Rand (R 950,000)", badge: "" },
+            { id: 5, title: "Waste Management Services", municipality: "Makhado Municipality", closing: "2026-12-20", amount: "Two million one hundred thousand Rand (R 2,100,000)", badge: "New" }
+        ];
+        
+        // Grants with 2026 deadlines (some closed)
+        const grants = [
+            { id: 101, title: "Youth Entrepreneurship Grant", dept: "NYDA", amount: "Fifty thousand to Two hundred fifty thousand Rand (R 50,000 - R 250,000)", deadline: "2026-01-30", icon: "🚀" },
+            { id: 102, title: "Green Energy Business Fund", dept: "DMRE", amount: "Up to Five hundred thousand Rand (R 500,000)", deadline: "2026-08-01", icon: "🌱" },
+            { id: 103, title: "NPO Capacity Building Grant", dept: "DSD", amount: "Seventy five thousand Rand (R 75,000)", deadline: "2026-02-15", icon: "🤝" },
+            { id: 104, title: "Women in Tech Grant", dept: "DCDT", amount: "One hundred twenty thousand Rand (R 120,000)", deadline: "2026-11-10", icon: "💻" }
+        ];
+        
+        function renderTenders() {
+            const container = document.getElementById('tendersList');
+            if (!container) return;
+            container.innerHTML = tenders.map(t => {
+                const closed = isClosed(t.closing);
+                return `
+                <div class="card-3d bg-white rounded-xl overflow-hidden shadow-md border-l-4 border-[#0B3B5F] tender-item p-5 hover:shadow-2xl transition-all ${closed ? 'opacity-90' : ''}" data-aos="flip-up" data-aos-delay="${t.id * 50}">
+                    <div class="flex justify-between items-start">
+                        <div><i class="fas fa-gavel text-[#D9A404] text-xl"></i><h3 class="font-extrabold text-lg mt-1">${t.title}</h3></div>
+                        <div class="flex gap-2">
+                            ${t.badge && !closed ? `<span class="bg-[#D9A404] text-white text-xs px-2 py-1 rounded-full animate-pulse">${t.badge}</span>` : ''}
+                            ${closed ? `<span class="closed-badge"><i class="fas fa-ban mr-1"></i>Closed</span>` : ''}
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2"><i class="fas fa-map-marker-alt"></i> ${t.municipality} • <i class="far fa-calendar-alt"></i> closes: ${t.closing}</p>
+                    <p class="text-md font-semibold text-[#0B3B5F] mt-3">💰 ${t.amount}</p>
+                    <button class="mt-3 text-[#800020] font-semibold text-sm hover:translate-x-2 transition-transform inline-flex items-center gap-1">View Details <i class="fas fa-arrow-right"></i></button>
+                </div>
+            `}).join('');
+        }
+        
+        function renderGrants() {
+            const container = document.getElementById('grantsList');
+            if (!container) return;
+            container.innerHTML = grants.map(g => {
+                const closed = isClosed(g.deadline);
+                return `
+                <div class="card-3d bg-white rounded-xl overflow-hidden shadow-md border-t-4 border-[#800020] grant-item p-5 hover:shadow-2xl transition-all ${closed ? 'opacity-90' : ''}" data-aos="flip-down" data-aos-delay="${g.id * 50}">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3"><span class="text-3xl">${g.icon}</span><h3 class="font-extrabold text-lg">${g.title}</h3></div>
+                        ${closed ? `<span class="closed-badge"><i class="fas fa-ban mr-1"></i>Closed</span>` : ''}
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2"><i class="fas fa-building"></i> ${g.dept} • <i class="far fa-clock"></i> Deadline: ${g.deadline}</p>
+                    <p class="text-md font-semibold text-[#800020] mt-2">💰 ${g.amount}</p>
+                    <button class="mt-3 text-[#D9A404] font-semibold text-sm hover:scale-105 transition-transform inline-flex items-center gap-1">Check Eligibility <i class="fas fa-external-link-alt"></i></button>
+                </div>
+            `}).join('');
+        }
+        
+        let registeredUsers = JSON.parse(localStorage.getItem('resourviaUsers') || '[]');
+        
+        const signupModal = document.getElementById('signupModal');
+        const loginModal = document.getElementById('loginModal');
+        const signupBtn = document.getElementById('signupBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const closeSignupModal = document.getElementById('closeSignupModal');
+        const switchToSignup = document.getElementById('switchToSignup');
+        
+        signupBtn.onclick = () => signupModal.classList.remove('hidden');
+        loginBtn.onclick = () => loginModal.classList.remove('hidden');
+        closeSignupModal.onclick = () => signupModal.classList.add('hidden');
+        if (switchToSignup) {
+            switchToSignup.onclick = () => {
+                loginModal.classList.add('hidden');
+                signupModal.classList.remove('hidden');
+            };
+        }
+        
+        document.getElementById('signupForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const regNo = document.getElementById('regNo').value.trim();
+            if (registeredUsers.some(u => u.email === email)) {
+                alert("❌ Email already registered with ReSourvia! Use a unique email.");
+                return;
+            }
+            if (regNo && registeredUsers.some(u => u.regNo === regNo)) {
+                alert("❌ Registration/ID already exists.");
+                return;
+            }
+            const newUser = {
+                fullName: document.getElementById('fullName').value,
+                email: email,
+                phone: document.getElementById('phone').value,
+                userType: document.getElementById('userType').value,
+                regNo: regNo,
+                password: document.getElementById('password').value
+            };
+            registeredUsers.push(newUser);
+            localStorage.setItem('resourviaUsers', JSON.stringify(registeredUsers));
+            alert("✅ Welcome to ReSourvia! Please login to continue.");
+            signupModal.classList.add('hidden');
+        });
+        
+        document.getElementById('loginForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const pwd = document.getElementById('loginPassword').value;
+            const user = registeredUsers.find(u => u.email === email && u.password === pwd);
+            if (user) {
+                alert(`✨ Welcome back ${user.fullName} to ReSourvia! Accessing your dashboard...`);
+                loginModal.classList.add('hidden');
+            } else {
+                alert("❌ Invalid credentials. Please sign up first.");
+            }
+        });
+        
+        document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            alert(`📬 Thank you ${name}! ReSourvia has received your ${subject} inquiry. We'll respond within 24 hours at ${email}.`);
+            e.target.reset();
+        });
+        
+        window.onclick = (e) => {
+            if (e.target === signupModal) signupModal.classList.add('hidden');
+            if (e.target === loginModal) loginModal.classList.add('hidden');
+        };
+        
+        renderTenders();
+        renderGrants();
+    </script>
+</body>
+</html>
